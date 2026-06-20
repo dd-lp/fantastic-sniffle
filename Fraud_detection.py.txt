@@ -1,14 +1,14 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
+# تحميل النموذج خارج الدالة ليكون متاحاً دائماً (أداء أفضل)
+model_name = "UBC-NLP/MARBERT"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
 def detect_arabic_fraud(text):
     print(f"جاري تحليل النص: {text}")
     
-    # تحميل النموذج المخصص للهندسة الاجتماعية والاحتيال المالي
-    model_name = "UBC-NLP/MARBERT"
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    
-    # هنا يتم فحص الكلمات الدلالية ونبرة النص (الاستعجال والطمع)
+    # قائمة الكلمات الدلالية ونبرة النص (الاستعجال والطمع)
     suspicious_words = ["اضغط هنا", "ربحت", "تحديث البيانات", "بطاقتك البنكية", "فورا"]
     
     is_fraud = any(word in text for word in suspicious_words)
